@@ -13,6 +13,9 @@ export const VideoStage = forwardRef<HTMLDivElement>(function VideoStage(_, ref)
   const videoTrack = screenShareTracks.find(
     (t) => t.source === Track.Source.ScreenShare
   );
+  const audioTrack = screenShareTracks.find(
+    (t) => t.source === Track.Source.ScreenShareAudio
+  );
 
   if (!videoTrack?.publication?.track) {
     return (
@@ -49,6 +52,16 @@ export const VideoStage = forwardRef<HTMLDivElement>(function VideoStage(_, ref)
         autoPlay
         playsInline
       />
+      {audioTrack?.publication?.track && (
+        <audio
+          ref={(el) => {
+            if (el && audioTrack.publication?.track) {
+              audioTrack.publication.track.attach(el);
+            }
+          }}
+          autoPlay
+        />
+      )}
     </div>
   );
 });
