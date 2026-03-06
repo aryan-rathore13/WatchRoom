@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#dfff00", // Hyper-Lime
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#0a0a08", // Obsidian/Ink
+                        "slate-custom": "#1a1a16",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-border {
+            border: 1px solid rgba(223, 255, 0, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 15px rgba(223, 255, 0, 0.3);
+        }
+
+        .pulse-dot {
+            box-shadow: 0 0 0 0 rgba(223, 255, 0, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(223, 255, 0, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(223, 255, 0, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(223, 255, 0, 0);
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary selection:text-black">
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <!-- Navigation -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background-dark/80 px-6 py-4 backdrop-blur-md lg:px-20">
+            <div class="flex items-center gap-12">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-symbols-outlined text-3xl font-bold">filter_none</span>
+                    <h2 class="text-xl font-extrabold uppercase tracking-tighter">Watchroom</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Discover</a>
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Gallery</a>
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Pricing</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <div
+                    class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/20">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter text-primary">1,248 Live Rooms</span>
+                </div>
+                <button
+                    class="bg-primary text-black px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest hover:scale-105 transition-transform">
+                    Join Now
+                </button>
+            </div>
+        </header>
+        <main class="flex-1">
+            <!-- Hero Section: 60/40 Split -->
+            <section class="relative px-6 py-20 lg:px-20 lg:py-32">
+                <div class="grid grid-cols-1 lg:grid-cols-10 gap-12 items-center">
+                    <div class="lg:col-span-6 flex flex-col gap-8">
+                        <div class="inline-flex items-center gap-2 text-primary">
+                            <span class="h-px w-8 bg-primary"></span>
+                            <span class="text-[10px] font-black uppercase tracking-[0.3em]">Cinematic
+                                Synchronization</span>
+                        </div>
+                        <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter dark:text-white">
+                            THE ART OF <br />
+                            <span class="text-primary italic">SHARED</span> VIEWING.
+                        </h1>
+                        <p class="max-w-md text-lg font-light leading-relaxed text-slate-400">
+                            A high-end social platform engineered for curated content, ultra-low latency, and
+                            professional-grade watch parties.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <button
+                                class="bg-primary text-black px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_0_30px_rgba(223,255,0,0.2)]">
+                                Create Master Room
+                            </button>
+                            <button
+                                class="border border-primary/30 text-white px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest hover:bg-primary/5 transition-all">
+                                Explore Catalog
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-4 relative">
+                        <div
+                            class="relative z-10 aspect-[4/5] overflow-hidden rounded-xl border border-primary/20 bg-slate-custom shadow-2xl">
+                            <img class="h-full w-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700"
+                                data-alt="Cinematic abstract visual for movie viewing"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK0K5_MDbCyCwNihG4n2nm4Ffm0Zfu7jLor9BC8G3ezVBMw-svyjm797rQbUCmLyc8HuFF8WNa4hNOqvs7DX5wmWVHoTBodwxb04U8D1CkN4ft2Gd3YXQrstl5Xn3q2LkYzt-htGz83gn2D-y1PZzn15LRUvh9ERhFF9c8F8vrK25LawBwUjB-JRFsa_OplrHE4lF40Y0MaDjlPCZSM_XTaadzDMpOgsq4P4aEIDUgHQq8FTF-lBtvFCVglVa4yNdwGsFWvLXLsxA" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent">
+                            </div>
+                            <!-- Floating Glass UI Mockup -->
+                            <div
+                                class="absolute bottom-6 left-6 right-6 p-4 glass-border rounded-lg bg-black/40 backdrop-blur-xl">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex -space-x-2">
+                                        <div class="h-8 w-8 rounded-full border-2 border-background-dark bg-cover"
+                                            data-alt="User avatar"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDz0rH9T33NUgOhO3Fm81nuRu8gOLNCX8mPHAP44YbSYWvFw5dK7KDDrYgOPU6fe4OO2acJ5KC0uM8daNbA2rpoWBNDYeBqU8Yf-yyHqsiYuNZSHNb6X8eKfVxarOweh8BWlPgX3s3R59TsMSuaI_-e4Wbw_LdkBEoV68ux0zzsVw0we4RI_NGy30xlvWwA0X_iTVhXV8LD82gEtsS2bPRn6uTiDEyDmjee3NUxcFCM7NDrxn6xUZtR5GO42ZqpnpvQTbaFcft6yxw')">
+                                        </div>
+                                        <div class="h-8 w-8 rounded-full border-2 border-background-dark bg-cover"
+                                            data-alt="User avatar"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgVIm5rSgJ3k5hZQP8urmvwBd0hrCnT4nIdNZndmq4xvg7D-mFXub0DiaXUJpTHFXfk7sIHcPKx7UFZHws5brbet1kgt4uuzNIRyorMcne3LM-VBGxVOlWUZQcqkeCNYnEtRZwTwmRyYVu2_mofegGVRy7aIb9hnaH3ft8Z4pXl98uuIqzVUWQqm-9lVBwGoUKhAwdahcuzcbvSJ5YKS3ztTTvS9asbThlhKSL0N6kXge5hSk2GFyxILAJtvMO_kqH4E16rh61axw')">
+                                        </div>
+                                        <div class="h-8 w-8 rounded-full border-2 border-background-dark bg-cover"
+                                            data-alt="User avatar"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBU8IMVHl8sSdhC-qCbVqNwRkOrm4Pj_s_p5aGoKI-xayPg4cQ_CJpwcN8xnGLHKxDMoMz6A8SjBcjZmlbqb9huVn81BOLPebOLDxYdZJhmiIyMNBloYJQcSw2QhsFofD38cmjcGhaQlTbeEi5Bbgd8NMp9pBM35XMXJbp50XmNIGCRyOcL7NZZ8ROFvKgf6MoM9Y84lIBbBf0qwPdWVy8wwV0_2m8aVa7vwC8EuwcWsdkPxjNtCuVrJgrwUMTaL_tEJfyTtqLxJ8Y')">
+                                        </div>
+                                        <div
+                                            class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background-dark bg-primary text-[10px] font-black text-black">
+                                            +12</div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-primary uppercase">Live Sync 4K</span>
+                                </div>
+                                <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full w-2/3 bg-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Aesthetic accents -->
+                        <div class="absolute -top-10 -right-10 h-40 w-40 border-t border-r border-primary/20"></div>
+                        <div class="absolute -bottom-10 -left-10 h-40 w-40 border-b border-l border-primary/20"></div>
+                    </div>
+                </div>
+            </section>
+            <!-- Feature Strip -->
+            <section class="border-y border-primary/10 bg-slate-custom/50 py-16">
+                <div class="px-6 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="group border-t-2 border-primary pt-6">
+                        <span class="text-primary material-symbols-outlined text-4xl mb-4">bolt</span>
+                        <h3 class="text-xl font-bold mb-2">HYPER-SYNC</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Zero-latency engine designed for
+                            frame-perfect playback across global nodes.</p>
+                    </div>
+                    <div class="group border-t-2 border-primary/30 pt-6 hover:border-primary transition-colors">
+                        <span class="text-primary material-symbols-outlined text-4xl mb-4">spatial_audio</span>
+                        <h3 class="text-xl font-bold mb-2">SPATIAL CHAT</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">High-fidelity voice integration
+                            that mimics the acoustics of a private theatre.</p>
+                    </div>
+                    <div class="group border-t-2 border-primary/30 pt-6 hover:border-primary transition-colors">
+                        <span class="text-primary material-symbols-outlined text-4xl mb-4">security</span>
+                        <h3 class="text-xl font-bold mb-2">OBSIDIAN PRIVACY</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">End-to-end encryption for private
+                            screenings and invite-only premieres.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- The Process: Staggered Ghost Numbers -->
+            <section class="px-6 py-24 lg:px-20">
+                <div class="flex flex-col gap-16">
+                    <div class="max-w-2xl">
+                        <h2 class="text-4xl font-black uppercase tracking-tighter">THE BLUEPRINT</h2>
+                        <p class="text-slate-400 font-light mt-4">Elevate your digital viewing experience in three
+                            calculated movements.</p>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-12">
+                        <div class="relative group">
+                            <span
+                                class="absolute -top-12 -left-4 text-9xl font-black text-primary/5 select-none transition-all group-hover:text-primary/10">01</span>
+                            <div class="relative z-10 pl-4">
+                                <h4 class="text-xs font-black text-primary uppercase tracking-[0.2em] mb-4">Discovery
+                                </h4>
+                                <h3 class="text-2xl font-bold mb-4">CURATE YOUR GALLERY</h3>
+                                <p class="text-slate-400 font-light">Connect your premium streaming libraries or upload
+                                    custom cinematic content directly to our cloud.</p>
+                            </div>
+                        </div>
+                        <div class="relative group lg:mt-24">
+                            <span
+                                class="absolute -top-12 -left-4 text-9xl font-black text-primary/5 select-none transition-all group-hover:text-primary/10">02</span>
+                            <div class="relative z-10 pl-4">
+                                <h4 class="text-xs font-black text-primary uppercase tracking-[0.2em] mb-4">
+                                    Orchestration</h4>
+                                <h3 class="text-2xl font-bold mb-4">INVITE THE CIRCLE</h3>
+                                <p class="text-slate-400 font-light">Generate encrypted glass-links to invite your inner
+                                    circle to an exclusive, synchronized event.</p>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <span
+                                class="absolute -top-12 -left-4 text-9xl font-black text-primary/5 select-none transition-all group-hover:text-primary/10">03</span>
+                            <div class="relative z-10 pl-4">
+                                <h4 class="text-xs font-black text-primary uppercase tracking-[0.2em] mb-4">Immersion
+                                </h4>
+                                <h3 class="text-2xl font-bold mb-4">UNIFIED PLAYBACK</h3>
+                                <p class="text-slate-400 font-light">Experience films exactly as they were intended:
+                                    together, in perfect 4K HDR synchronization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Social Proof: Italic Serif Quote -->
+            <section class="bg-primary py-24 px-6 lg:px-20">
+                <div class="max-w-4xl mx-auto text-center">
+                    <span class="material-symbols-outlined text-black/40 text-6xl mb-8">format_quote</span>
+                    <p class="text-3xl md:text-5xl font-light italic text-black leading-tight tracking-tight">
+                        "Watchroom has completely redefined how we host digital premieres. The latency is nonexistent,
+                        and the aesthetic is pure luxury."
+                    </p>
+                    <div class="mt-12 flex flex-col items-center gap-2">
+                        <div class="h-px w-12 bg-black/20"></div>
+                        <p class="text-xs font-black uppercase tracking-widest text-black">Julian Vose — Creative
+                            Director at Avenir</p>
+                    </div>
+                </div>
+            </section>
+            <!-- CTA Footer -->
+            <footer class="bg-background-dark pt-24 pb-12 border-t border-primary/10">
+                <div class="px-6 lg:px-20">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-20">
+                        <div class="max-w-xl">
+                            <h2 class="text-5xl font-black tracking-tighter text-white mb-6">READY TO <span
+                                    class="text-primary italic">SYNC</span>?</h2>
+                            <p class="text-slate-400 font-light text-lg">Join the elite network of viewers setting the
+                                new standard for digital cinema.</p>
+                        </div>
+                        <button
+                            class="w-full lg:w-auto bg-primary text-black px-16 py-6 rounded-lg text-lg font-black uppercase tracking-widest hover:scale-105 transition-all">
+                            Get Started Free
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-primary/5 pt-16">
+                        <div class="flex flex-col gap-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary">Platform</p>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Live Rooms</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Studio Engine</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Integrations</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary">Company</p>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Journal</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Careers</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">About</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary">Legal</p>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Privacy</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Terms</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Security</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary">Social</p>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Instagram</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">X / Twitter</a>
+                            <a class="text-sm font-light text-slate-400 hover:text-white" href="#">Discord</a>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-24 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-primary/5 pt-8 opacity-30">
+                        <p class="text-[10px] font-bold tracking-widest uppercase">© 2024 WATCHROOM TECHNOLOGIES. ALL
+                            RIGHTS RESERVED.</p>
+                        <div class="flex items-center gap-4 text-primary">
+                            <span class="material-symbols-outlined text-lg">shield_locked</span>
+                            <span class="text-[10px] font-bold tracking-widest uppercase">Obsidian Encryption
+                                Enabled</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

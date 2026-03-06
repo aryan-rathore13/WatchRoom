@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+
+# build
+.next
+dist
+.turbo
+*.tsbuildinfo
+
+# env
+.env
+.env.local
+.env.production
+.env.*.local
+
+# prisma
+apps/api/prisma/migrations/**/migration_lock.toml
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# debug
+npm-debug.log*
+pnpm-debug.log*
+
+# vercel
+.vercel
