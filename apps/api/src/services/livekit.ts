@@ -1,4 +1,4 @@
-import { AccessToken, RoomServiceClient } from "livekit-server-sdk";
+import { AccessToken, RoomServiceClient, TrackSource } from "livekit-server-sdk";
 
 const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY || "devkey";
 const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET || "secret_that_is_at_least_32_characters_long";
@@ -44,7 +44,7 @@ export async function generateToken(
       roomJoin: true,
       room: roomName,
       canPublish: true,
-      canPublishSources: ["microphone"],
+      canPublishSources: [TrackSource.MICROPHONE],
       canSubscribe: true,
     });
   }
