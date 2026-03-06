@@ -58,8 +58,10 @@ Verify services are running:
 
 ```bash
 docker compose ps
-# postgres on :5432, redis on :6379, livekit on :7880
+# postgres on :5433, redis on :6379, livekit on :7880
 ```
+
+> **Port conflict note:** Docker Postgres is mapped to port **5433** (not 5432) to avoid conflicts with any local Postgres installation on your Mac. The `.env.example` already reflects this.
 
 ### 3. Configure environment
 
@@ -80,6 +82,13 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 ```bash
 cd apps/api
 pnpm db:push
+```
+
+If you see `P1010: User was denied access`, verify Docker Postgres is running on 5433 and no local Postgres is intercepting the connection:
+
+```bash
+# Should connect to the Docker instance
+PGPASSWORD=watchroom psql -h 127.0.0.1 -p 5433 -U watchroom -d watchroom -c "SELECT 1"
 ```
 
 ### 5. Start dev servers
@@ -157,7 +166,7 @@ This runs both apps in parallel via Turborepo:
    DATABASE_URL="postgresql://user:pass@db-host:5432/watchroom"
    REDIS_URL="redis://redis-host:6379"
    LIVEKIT_API_KEY="your-api-key"
-   LIVEKIT_API_SECRET="your-api-secret"
+   LIVEKIT_API_SECRET="your-api-secret-min-32-chars-long"
    LIVEKIT_URL="wss://livekit.yourdomain.com"
    PORT=3001
    CORS_ORIGIN="https://yourdomain.com"
@@ -246,10 +255,10 @@ See `.github/workflows/ci.yml` for the full pipeline.
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `DATABASE_URL` | Yes | — | PostgreSQL connection string |
+| `DATABASE_URL` | Yes | `postgresql://watchroom:watchroom@localhost:5433/watchroom` | PostgreSQL connection string (port 5433 for Docker) |
 | `REDIS_URL` | Yes | `redis://localhost:6379` | Redis connection string |
 | `LIVEKIT_API_KEY` | Yes | `devkey` | LiveKit API key |
-| `LIVEKIT_API_SECRET` | Yes | `devsecret` | LiveKit API secret |
+| `LIVEKIT_API_SECRET` | Yes | — | LiveKit API secret (min 32 characters) |
 | `LIVEKIT_URL` | Yes | `ws://localhost:7880` | LiveKit server WebSocket URL |
 | `PORT` | No | `3001` | API server port |
 | `CORS_ORIGIN` | No | `http://localhost:3000` | Allowed CORS origin |
@@ -259,6 +268,25 @@ See `.github/workflows/ci.yml` for the full pipeline.
 | Variable | Required | Default | Description |
 |---|---|---|---|
 | `NEXT_PUBLIC_API_URL` | Yes | `http://localhost:3001` | Backend API base URL |
+
+## Troubleshooting
+
+### Postgres `P1010: User was denied access`
+You likely have a local Postgres on port 5432 shadowing the Docker one. Docker Postgres is mapped to **5433** to avoid this. Verify your `DATABASE_URL` uses port 5433:
+```
+DATABASE_URL="postgresql://watchroom:watchroom@127.0.0.1:5433/watchroom"
+```
+
+### LiveKit container keeps restarting
+Check logs with `cd infra && docker compose logs livekit`. Common causes:
+- **Secret too short**: LiveKit requires API secrets of at least 32 characters. The dev default in `infra/livekit.yaml` meets this requirement.
+- **TURN domain error**: TURN is disabled for local dev. If you see "TURN domain is not correct", ensure `turn.enabled: false` in `livekit.yaml`.
+
+### API `Top-level await is not supported`
+The API server uses `tsx` for dev which runs via esbuild in CJS mode. The server entry point wraps all async calls in a `main()` function to avoid this. If you add new files with top-level `await`, wrap them the same way.
+
+### `pnpm install` warns about ignored build scripts
+Run `pnpm approve-builds` or add the packages to `pnpm.onlyBuiltDependencies` in the root `package.json`. The following packages need build scripts: `@prisma/client`, `@prisma/engines`, `prisma`, `esbuild`, `sharp`.
 
 ## License
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, PhoneOff } from "lucide-react";
 import { MicToggle } from "./MicToggle";
 import { ScreenShareButton } from "./ScreenShareButton";
 import { FullscreenButton } from "./FullscreenButton";
@@ -10,12 +10,14 @@ import { useFullscreen } from "@/hooks/useFullscreen";
 
 interface ControlBarProps {
   onToggleChat: () => void;
+  onEndMeeting: () => void;
   chatOpen: boolean;
   unreadCount: number;
 }
 
 export function ControlBar({
   onToggleChat,
+  onEndMeeting,
   chatOpen,
   unreadCount,
 }: ControlBarProps) {
@@ -71,6 +73,16 @@ export function ControlBar({
           )}
         </button>
         <FullscreenButton />
+
+        <div className="ml-2 h-6 w-px bg-white/10" />
+
+        <button
+          onClick={onEndMeeting}
+          className="rounded-lg bg-red-500/20 p-3 text-red-400 transition-colors hover:bg-red-500/30"
+          title="End meeting"
+        >
+          <PhoneOff className="h-5 w-5" />
+        </button>
       </div>
     </div>
   );

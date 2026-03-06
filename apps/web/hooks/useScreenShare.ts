@@ -13,13 +13,17 @@ export function useScreenShare(room: Room | undefined) {
       await room.localParticipant.setScreenShareEnabled(false);
       setIsSharing(false);
     } else {
-      await room.localParticipant.setScreenShareEnabled(true, {
-        audio: true,
-        contentHint: "detail",
-        suppressLocalAudioPlayback: true,
-        resolution: { width: 1920, height: 1080, frameRate: 30 },
-      });
-      setIsSharing(true);
+      try {
+        await room.localParticipant.setScreenShareEnabled(true, {
+          audio: true,
+          contentHint: "detail",
+          suppressLocalAudioPlayback: true,
+          resolution: { width: 1920, height: 1080, frameRate: 30 },
+        });
+        setIsSharing(true);
+      } catch {
+        // User cancelled the screen picker — do nothing
+      }
     }
   }, [room, isSharing]);
 

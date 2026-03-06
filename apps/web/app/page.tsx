@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Zap,
@@ -10,9 +12,17 @@ import {
   MessageSquare,
   Maximize,
 } from "lucide-react";
+import { CreateRoomModal } from "@/components/room/CreateRoomModal";
 import ElectricWavesShader from "@/components/ui/colorful-wave-pattern-1";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { ImageSequencePlayer } from "@/components/ui/image-sequence-player";
+
+// Generate frame paths: /frames/city-001.webp through /frames/city-064.webp
+const heroFrames = Array.from(
+  { length: 64 },
+  (_, i) => `/frames/city-${String(i + 1).padStart(3, "0")}.webp`
+);
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -24,6 +34,19 @@ const fadeUp = {
 };
 
 export default function LandingPage() {
+  const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleEnterRoom = (
+    roomId: string,
+    token: string,
+    livekitUrl: string,
+    name: string
+  ) => {
+    const params = new URLSearchParams({ token, livekitUrl, name });
+    router.push(`/room/${roomId}?${params.toString()}`);
+  };
+
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
       {/* Navigation */}
@@ -77,7 +100,10 @@ export default function LandingPage() {
               1,248 Live Rooms
             </span>
           </div>
-          <button className="rounded-lg bg-primary px-6 py-2 text-xs font-black uppercase tracking-widest text-black transition-transform hover:scale-105">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="rounded-lg bg-primary px-6 py-2 text-xs font-black uppercase tracking-widest text-black transition-transform hover:scale-105"
+          >
             Join Now
           </button>
         </div>
@@ -115,7 +141,10 @@ export default function LandingPage() {
                   ultra-low latency, and professional-grade watch parties.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <button className="rounded-lg bg-primary px-10 py-5 text-sm font-black uppercase tracking-widest text-black shadow-[0_0_30px_rgba(223,255,0,0.2)] transition-all hover:brightness-110">
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="rounded-lg bg-primary px-10 py-5 text-sm font-black uppercase tracking-widest text-black shadow-[0_0_30px_rgba(223,255,0,0.2)] transition-all hover:brightness-110"
+                  >
                     Create Master Room
                   </button>
                   <button className="rounded-lg border border-primary/30 px-10 py-5 text-sm font-black uppercase tracking-widest text-white transition-all hover:bg-primary/5">
@@ -135,7 +164,11 @@ export default function LandingPage() {
                   }}
                   className="relative z-10 aspect-[4/5] overflow-hidden rounded-xl border border-primary/20 bg-slate-custom shadow-2xl"
                 >
-                  <div className="h-full w-full bg-gradient-to-br from-slate-custom via-[#111] to-black" />
+                  <ImageSequencePlayer
+                    frames={heroFrames}
+                    fps={8}
+                    className="absolute inset-0 h-full w-full"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent" />
                   {/* Floating Glass UI Mockup */}
                   <div className="glass-border absolute bottom-6 left-6 right-6 rounded-lg bg-black/40 p-4 backdrop-blur-xl">
@@ -360,7 +393,10 @@ export default function LandingPage() {
                   digital cinema.
                 </p>
               </div>
-              <button className="w-full rounded-lg bg-primary px-16 py-6 text-lg font-black uppercase tracking-widest text-black transition-all hover:scale-105 lg:w-auto">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="w-full rounded-lg bg-primary px-16 py-6 text-lg font-black uppercase tracking-widest text-black transition-all hover:scale-105 lg:w-auto"
+              >
                 Get Started Free
               </button>
             </div>
@@ -417,6 +453,12 @@ export default function LandingPage() {
           </div>
         </footer>
       </main>
+
+      <CreateRoomModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onEnterRoom={handleEnterRoom}
+      />
     </div>
   );
 }

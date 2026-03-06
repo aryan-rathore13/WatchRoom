@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   LiveKitRoom,
   RoomAudioRenderer,
@@ -19,6 +20,7 @@ interface RoomViewProps {
 }
 
 function RoomInner({ participantName }: { participantName: string }) {
+  const router = useRouter();
   const room = useRoomContext();
   const { messages, sendMessage } = useChat(room, participantName);
   const [chatOpen, setChatOpen] = useState(false);
@@ -38,6 +40,11 @@ function RoomInner({ participantName }: { participantName: string }) {
     if (!chatOpen) setUnreadCount(0);
   };
 
+  const handleEndMeeting = async () => {
+    await room.disconnect();
+    router.push("/");
+  };
+
   return (
     <div
       className={`flex h-screen bg-black ${isFullscreen ? "fixed inset-0 z-[9999]" : ""}`}
@@ -48,6 +55,7 @@ function RoomInner({ participantName }: { participantName: string }) {
         </div>
         <ControlBar
           onToggleChat={toggleChat}
+          onEndMeeting={handleEndMeeting}
           chatOpen={chatOpen}
           unreadCount={unreadCount}
         />

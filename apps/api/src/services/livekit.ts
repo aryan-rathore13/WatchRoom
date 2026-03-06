@@ -1,7 +1,7 @@
 import { AccessToken, RoomServiceClient } from "livekit-server-sdk";
 
 const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY || "devkey";
-const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET || "devsecret";
+const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET || "secret_that_is_at_least_32_characters_long";
 const LIVEKIT_URL = process.env.LIVEKIT_URL || "ws://localhost:7880";
 
 const livekitHost = LIVEKIT_URL.replace("ws://", "http://").replace(
