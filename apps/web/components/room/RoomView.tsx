@@ -27,6 +27,7 @@ function RoomInner({ participantName, inviteCode }: { participantName: string; i
   const [chatOpen, setChatOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const prevMsgCount = useRef(0);
+  const stageRef = useRef<HTMLDivElement>(null);
   const { isFullscreen } = useFullscreen();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function RoomInner({ participantName, inviteCode }: { participantName: string; i
     >
       <div className="flex flex-1 flex-col">
         <div className="flex-1 overflow-hidden">
-          <VideoStage />
+          <VideoStage ref={stageRef} />
         </div>
         <ControlBar
           onToggleChat={toggleChat}
@@ -60,6 +61,7 @@ function RoomInner({ participantName, inviteCode }: { participantName: string; i
           chatOpen={chatOpen}
           unreadCount={unreadCount}
           inviteCode={inviteCode}
+          stageRef={stageRef}
         />
       </div>
       {chatOpen && (

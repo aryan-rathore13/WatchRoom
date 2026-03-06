@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type RefObject } from "react";
 import { MessageSquare, PhoneOff, Info, Copy, Check } from "lucide-react";
 import { MicToggle } from "./MicToggle";
 import { ScreenShareButton } from "./ScreenShareButton";
@@ -14,6 +14,7 @@ interface ControlBarProps {
   chatOpen: boolean;
   unreadCount: number;
   inviteCode?: string;
+  stageRef?: RefObject<HTMLDivElement | null>;
 }
 
 export function ControlBar({
@@ -22,6 +23,7 @@ export function ControlBar({
   chatOpen,
   unreadCount,
   inviteCode,
+  stageRef,
 }: ControlBarProps) {
   const { isFullscreen } = useFullscreen();
   const [visible, setVisible] = useState(true);
@@ -129,7 +131,7 @@ export function ControlBar({
             </span>
           )}
         </button>
-        <FullscreenButton />
+        <FullscreenButton stageRef={stageRef} />
 
         <div className="ml-2 h-6 w-px bg-white/10" />
 

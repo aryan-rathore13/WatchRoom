@@ -1,9 +1,10 @@
 "use client";
 
+import { forwardRef } from "react";
 import { useTracks } from "@livekit/components-react";
 import { Track } from "livekit-client";
 
-export function VideoStage() {
+export const VideoStage = forwardRef<HTMLDivElement>(function VideoStage(_, ref) {
   const screenShareTracks = useTracks(
     [Track.Source.ScreenShare, Track.Source.ScreenShareAudio],
     { onlySubscribed: true }
@@ -15,7 +16,7 @@ export function VideoStage() {
 
   if (!videoTrack?.publication?.track) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-black">
+      <div ref={ref} className="flex h-full w-full items-center justify-center bg-black">
         <div className="flex flex-col items-center gap-4 text-slate-500">
           <svg
             className="h-16 w-16"
@@ -37,15 +38,17 @@ export function VideoStage() {
   }
 
   return (
-    <video
-      ref={(el) => {
-        if (el && videoTrack.publication?.track) {
-          videoTrack.publication.track.attach(el);
-        }
-      }}
-      className="h-full w-full object-contain"
-      autoPlay
-      playsInline
-    />
+    <div ref={ref} className="h-full w-full bg-black">
+      <video
+        ref={(el) => {
+          if (el && videoTrack.publication?.track) {
+            videoTrack.publication.track.attach(el);
+          }
+        }}
+        className="h-full w-full object-contain"
+        autoPlay
+        playsInline
+      />
+    </div>
   );
-}
+});
