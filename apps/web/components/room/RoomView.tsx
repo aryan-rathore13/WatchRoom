@@ -17,9 +17,10 @@ interface RoomViewProps {
   token: string;
   livekitUrl: string;
   participantName: string;
+  inviteCode?: string;
 }
 
-function RoomInner({ participantName }: { participantName: string }) {
+function RoomInner({ participantName, inviteCode }: { participantName: string; inviteCode?: string }) {
   const router = useRouter();
   const room = useRoomContext();
   const { messages, sendMessage } = useChat(room, participantName);
@@ -58,6 +59,7 @@ function RoomInner({ participantName }: { participantName: string }) {
           onEndMeeting={handleEndMeeting}
           chatOpen={chatOpen}
           unreadCount={unreadCount}
+          inviteCode={inviteCode}
         />
       </div>
       {chatOpen && (
@@ -72,7 +74,7 @@ function RoomInner({ participantName }: { participantName: string }) {
   );
 }
 
-export function RoomView({ token, livekitUrl, participantName }: RoomViewProps) {
+export function RoomView({ token, livekitUrl, participantName, inviteCode }: RoomViewProps) {
   return (
     <LiveKitRoom
       serverUrl={livekitUrl}
@@ -83,7 +85,7 @@ export function RoomView({ token, livekitUrl, participantName }: RoomViewProps) 
         dynacast: true,
       }}
     >
-      <RoomInner participantName={participantName} />
+      <RoomInner participantName={participantName} inviteCode={inviteCode} />
     </LiveKitRoom>
   );
 }

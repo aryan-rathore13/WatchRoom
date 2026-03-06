@@ -8,6 +8,7 @@ export default function RoomPage() {
   const token = searchParams.get("token");
   const livekitUrl = searchParams.get("livekitUrl");
   const name = searchParams.get("name");
+  const inviteCode = searchParams.get("inviteCode");
 
   if (!token || !livekitUrl || !name) {
     return (
@@ -25,6 +26,6 @@ export default function RoomPage() {
   }
 
   return (
-    <RoomView token={token} livekitUrl={livekitUrl} participantName={name} />
+    <RoomView token={token} livekitUrl={livekitUrl} participantName={name} inviteCode={inviteCode || undefined} />
   );
 }

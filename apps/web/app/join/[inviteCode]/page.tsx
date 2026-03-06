@@ -37,6 +37,7 @@ export default function JoinPage() {
         token,
         livekitUrl,
         name,
+        inviteCode,
       });
       router.push(`/room/${roomId}?${searchParams.toString()}`);
     } catch {

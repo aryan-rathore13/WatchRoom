@@ -13,7 +13,8 @@ interface CreateRoomModalProps {
     roomId: string,
     token: string,
     livekitUrl: string,
-    name: string
+    name: string,
+    inviteCode: string
   ) => void;
 }
 
@@ -58,7 +59,7 @@ export function CreateRoomModal({
 
   const handleEnter = () => {
     if (!roomData) return;
-    onEnterRoom(roomData.roomId, roomData.token, roomData.livekitUrl, name.trim());
+    onEnterRoom(roomData.roomId, roomData.token, roomData.livekitUrl, name.trim(), roomData.inviteCode);
   };
 
   const handleClose = () => {

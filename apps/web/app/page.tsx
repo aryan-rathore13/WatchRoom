@@ -41,9 +41,10 @@ export default function LandingPage() {
     roomId: string,
     token: string,
     livekitUrl: string,
-    name: string
+    name: string,
+    inviteCode: string
   ) => {
-    const params = new URLSearchParams({ token, livekitUrl, name });
+    const params = new URLSearchParams({ token, livekitUrl, name, inviteCode });
     router.push(`/room/${roomId}?${params.toString()}`);
   };
 
